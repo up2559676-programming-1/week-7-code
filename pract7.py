@@ -1,4 +1,7 @@
-from graphix import Window, Circle, Point
+import time
+from graphix import Text, Window, Circle, Point
+from pract5 import draw_brown_eye, distance_between_points
+from pract6 import calculate_grades
 
 
 def hello_while():
@@ -120,8 +123,63 @@ def traffic_lights():
     green.fill_colour = "black"
     green.draw(win)
     while True:
-        pass
-        # remove the `pass` and add your code here
+        time.sleep(3)
+        red.fill_colour = "black"
+        amber.fill_colour = "yellow"
+
+        time.sleep(3)
+        amber.fill_colour = "black"
+        green.fill_colour = "green"
+
+        time.sleep(3)
+        green.fill_colour = "black"
+        red.fill_colour = "red"
+
+
+def grade_coursework():
+    def int_input() -> int:
+        while True:
+            try:
+                return int(input("Enter coursework mark: "))
+            except ValueError:
+                pass
+
+    mark = int_input()
+    while 20 < mark < 0:
+        mark = int_input()
+
+    print(f"Coursework grade: {calculate_grades(mark)}")
+
+
+def order_price():
+    def product_input() -> tuple[float, float, str]:
+        unit_price = float(input("Enter unit price £"))
+        quantity = float(input("Enter the quantity: "))
+        is_more = input("Enter 'y' if there are more products: ")
+
+        return (unit_price, quantity, is_more)
+
+    is_more = "y"
+    price = 0.0
+    while is_more == "y":
+        (unit_price, quantity, is_more) = product_input()
+        price += unit_price * quantity
+
+    print(f"Total order price: {price:.2f}")
+
+
+def clickable_eye():
+    win = Window()
+    draw_brown_eye(win, Point(200, 150), 100)
+
+    label = Text(Point(350, 150), "")
+
+    while True:
+        pos = win.get_mouse()
+        dist = distance_between_points(Point(200, 150), pos)
+
+
+clickable_eye()
 
 
 # For question 6
@@ -132,4 +190,12 @@ def fahrenheit_to_celsius(f):
 def celsius_to_fahrenheit(c):
     return c * 9 / 5 + 32
 
+
 # Solutions to the programming exercises:
+
+
+def get_name() -> str:
+    while True:
+        name = input("Enter name: ")
+        if name.isalpha():
+            return name
